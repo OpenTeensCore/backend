@@ -163,3 +163,7 @@ cython_debug/
 .vscode/*
 
 *.db
+
+local_history.patch
+local_history/
+.idea/
