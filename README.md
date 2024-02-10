@@ -45,6 +45,7 @@ go run main.go
 
 ### 目录结构
 
+- `/docs` - 存放文档
 - `/controller` - 存放路由处理函数
 - `/services` - 业务逻辑处理（被controller层调用）【待重构】
 - `/model` - 数据模型
