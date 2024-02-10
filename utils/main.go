@@ -1,8 +1,6 @@
 package utils
 
 import (
-	"crypto/sha256"
-	"encoding/hex"
 	"math/rand"
 	"regexp"
 	"time"
@@ -76,24 +74,3 @@ func validateNickname(nickname string) bool {
 }
 
 // ToolUserEmailCheck 检查邮箱是否符合格式或已经注册
-
-const salt = "T1H2I3S4I5S6A7V8E0R1Y2L3O4N5G6A7N8D9U0NI.QU3E3H1A1S1H2S2A2L2T2"
-
-// HashPassword 创建带有固定盐值的哈希密码
-func HashPassword(password string) (string, error) {
-	// 将盐值附加到密码末尾
-	passwordWithSalt := password + salt
-
-	// 使用 SHA-256 哈希函数
-	hash := sha256.Sum256([]byte(passwordWithSalt))
-	return hex.EncodeToString(hash[:]), nil
-}
-
-// CheckPasswordHash 验证密码与哈希是否匹配
-func CheckPasswordHash(password, hash string) bool {
-	hashedPassword, err := HashPassword(password)
-	if err != nil {
-		return false
-	}
-	return hashedPassword == hash
-}

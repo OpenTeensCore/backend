@@ -146,7 +146,7 @@ func UserRegisterHandler(c *gin.Context) {
 	var UserAccount model.UserAccount
 	UserAccount.Email = email
 	UserAccount.Username = username
-	UserAccount.Password, _ = utils.HashPassword(password)
+	UserAccount.Password = password
 	UserAccount.Status = "activate"
 	UserAccount.Nickname = utils.ToolGenerateNickname()
 
@@ -185,25 +185,22 @@ func UserLoginHandler(c *gin.Context) {
 
 // UserLoginService 用户登录业务逻辑（包括存入数据库）
 func UserLoginService(username string, password string) (bool, string) {
-	//	先加密密码
-	passwordHashed, _ := utils.HashPassword(password)
-
 	// 然后首先用用户名密码DBUserCheckAccountByUsernameAndPasswordHashed
-	ok, user := model.DBUserCheckAccount(username, passwordHashed, model.LoginByUsername)
+	ok, user := model.DBUserCheckAccount(username, password, model.LoginByUsername)
 	if ok {
 		_, token := model.DBUserLoginCreateToken(user, "username")
 		return true, token
 	}
 
 	// 然后用邮箱密码DBUserCheckAccountByEmailAndPasswordHashed
-	ok, user = model.DBUserCheckAccount(username, passwordHashed, model.LoginByEmail)
+	ok, user = model.DBUserCheckAccount(username, password, model.LoginByEmail)
 	if ok {
 		_, token := model.DBUserLoginCreateToken(user, "email")
 		return true, token
 	}
 
 	//	然后用uid密码DBUserCheckAccountByUidAndPasswordHashed
-	ok, user = model.DBUserCheckAccount(username, passwordHashed, model.LoginByUserID)
+	ok, user = model.DBUserCheckAccount(username, password, model.LoginByUserID)
 	if ok {
 		_, token := model.DBUserLoginCreateToken(user, "uid")
 		return true, token
