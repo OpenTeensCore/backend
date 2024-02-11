@@ -5,6 +5,7 @@ import (
 	"encoding/hex"
 	"math/rand"
 	"regexp"
+	"strings"
 	"time"
 	"unicode/utf8"
 )
@@ -57,9 +58,32 @@ func ToolValidateValue(value string, valueType ValueType) bool {
 
 // validateEmail 验证邮箱格式
 func validateEmail(email string) bool {
-	emailPattern := `^[a-zA-Z0-9._%+-]+@(tsinglan\.org|tsinglan\.cn)$`
-	success, _ := regexp.MatchString(emailPattern, email)
-	return success
+	// 验证邮箱格式：name@domain
+	splited := strings.Split(email, "@")
+	if len(splited) != 2 {
+		return false
+	}
+
+	// extract name and domain
+	emailName, emailDomain := splited[0], splited[1]
+
+	// check1: name
+	emailNamePattern := `^[a-zA-Z0-9._%+-]+$`
+	success1, _ := regexp.MatchString(emailNamePattern, emailName)
+	if !success1 {
+		return false
+	}
+
+	// check2: domain
+	trustedEmailDomains := []string{"openteens.org", "gmail.com"}
+	for _, domain := range trustedEmailDomains {
+		if emailDomain == domain {
+			return true
+		}
+	}
+
+	// domain not supported
+	return false
 }
 
 // validateUsername 验证用户名
