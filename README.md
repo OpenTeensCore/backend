@@ -52,6 +52,7 @@ go run main.go
 - `/utils` - 工具函数
 - `/dao` - 数据库相关配置
 - `/router` - 路由配置
+- `/test` - 测试文件
 
 ### 添加新的API
 
