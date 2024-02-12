@@ -7,7 +7,8 @@ import (
 )
 
 func main() {
-	err := dao.InitMySql()
+	//err := dao.InitMySql()
+	err := dao.InitSqlite()
 	if err != nil {
 		panic(err)
 	}
