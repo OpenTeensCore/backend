@@ -1,105 +1,106 @@
 v1:
   user:
-    - api: GET v1/user/
-      needAuth: false
-      desc: Display the Hello message
-      response: 
-        - '200 {"message": "Hello, World!"}'
+    account:
+      - api: GET v1/user/
+        needAuth: false
+        desc: Display the Hello message
+        response: 
+          - '200 {"message": "Hello, World!"}'
 
-    - api: POST v1/user/sendEmail
-      needAuth: false
-      desc: 发送验证邮件码到指定邮箱（目前直接显示在debug log）
-      param:
-        - name: email
-          type: string
-          desc: 邮箱地址（目前有指定后缀）
-          required: true
-      response:
-        - '200 {"msg": "Code send successfully!"}'
-        - '400 {"msg": "Invalid email address!"}'
-    
-    - api: POST v1/user/verifyEmail
-      needAuth: false
-      desc: 验证邮箱
-      param:
-        - name: email
-          type: string
-          desc: 邮箱地址
-          required: true
-        - name: code
-          type: string
-          desc: 邮箱验证码验证码
-          required: true
-      response:
-        - '200 {"msg": "Email verified successfully!"}'
-        - '400 {"msg": "Invalid email address or code!"}'
-    
-    - api: GET v1/user/isExistEmail
-      needAuth: false
-      desc: 判断邮箱是否已注册
-      param:
-        - name: email
-          type: string
-          desc: 邮箱地址
-          required: true
-      response:
-        - '200 {"msg": "Email is exist.", "data": true}'
-        - '200 {"msg": "Email is not exist.", "data": false}'
-        - '400 {"msg": "Email is not valid."}'
-    
-    - api: POST v1/user/reg
-      needAuth: false
-      desc: 注册用户
-      param:
-        - name: username
-          type: string
-          desc: 用户名
-          required: true
-        - name: email
-          type: string
-          desc: 邮箱地址
-          required: true
-        - name: code
-          type: string
-          desc: 邮箱验证码
-          required: true
-        - name: password
-          type: string
-          desc: 密码 (sha-256加密后的密码)
-          required: true
-      response:
-        - '200 {"code": 200, "msg": "Register successfully!"}'
-        - '200 {"code": 400, "msg": "Register Failed."}'
-        - '400 {"code": 400, "msg": "Username is exist."}'
+      - api: POST v1/user/sendEmail
+        needAuth: false
+        desc: 发送验证邮件码到指定邮箱（目前直接显示在debug log）
+        param:
+          - name: email
+            type: string
+            desc: 邮箱地址（目前有指定后缀）
+            required: true
+        response:
+          - '200 {"msg": "Code send successfully!"}'
+          - '400 {"msg": "Invalid email address!"}'
+      
+      - api: POST v1/user/verifyEmail
+        needAuth: false
+        desc: 验证邮箱
+        param:
+          - name: email
+            type: string
+            desc: 邮箱地址
+            required: true
+          - name: code
+            type: string
+            desc: 邮箱验证码验证码
+            required: true
+        response:
+          - '200 {"msg": "Email verified successfully!"}'
+          - '400 {"msg": "Invalid email address or code!"}'
+      
+      - api: GET v1/user/isExistEmail
+        needAuth: false
+        desc: 判断邮箱是否已注册
+        param:
+          - name: email
+            type: string
+            desc: 邮箱地址
+            required: true
+        response:
+          - '200 {"msg": "Email is exist.", "data": true}'
+          - '200 {"msg": "Email is not exist.", "data": false}'
+          - '400 {"msg": "Email is not valid."}'
+      
+      - api: POST v1/user/reg
+        needAuth: false
+        desc: 注册用户
+        param:
+          - name: username
+            type: string
+            desc: 用户名
+            required: true
+          - name: email
+            type: string
+            desc: 邮箱地址
+            required: true
+          - name: code
+            type: string
+            desc: 邮箱验证码
+            required: true
+          - name: password
+            type: string
+            desc: 密码 (sha-256加密后的密码)
+            required: true
+        response:
+          - '200 {"code": 200, "msg": "Register successfully!"}'
+          - '200 {"code": 400, "msg": "Register Failed."}'
+          - '400 {"code": 400, "msg": "Username is exist."}'
 
-    - api: POST v1/user/login
-      needAuth: false
-      desc: 用户登录
-      param:
-        - name: username
-          type: string
-          desc: 用户名
-          required: true
-        - name: password
-          type: string
-          desc: 密码 (sha-256加密后的密码)
-          required: true
-      response:
-        - '200 {"code": 200, "msg": "Login Successfully!", "data": "this is token"}'
-        - '400 {"code": 400, "msg": "Login Failed.", "data": false}'
+      - api: POST v1/user/login
+        needAuth: false
+        desc: 用户登录
+        param:
+          - name: username
+            type: string
+            desc: 用户名
+            required: true
+          - name: password
+            type: string
+            desc: 密码 (sha-256加密后的密码)
+            required: true
+        response:
+          - '200 {"code": 200, "msg": "Login Successfully!", "data": "this is token"}'
+          - '400 {"code": 400, "msg": "Login Failed.", "data": false}'
 
-    - api: GET v1/user/getUserInfo
-      needAuth: true
-      desc: 获取用户信息
-      param:
-        - name: user
-          type: string
-          desc: 指定的用户
-          required: true
-      response:
-        - '200 {"msg": "Get user info successfully!", "data": {"account": "<UserAccountObject>", "info": "<UserInfoObject>"}}'
-        - '400 {"msg": "Get user info failed.", "data": false}'
+      - api: GET v1/user/getUserInfo
+        needAuth: true
+        desc: 获取用户信息
+        param:
+          - name: user
+            type: string
+            desc: 指定的用户
+            required: true
+        response:
+          - '200 {"msg": "Get user info successfully!", "data": {"account": "<UserAccountObject>", "info": "<UserInfoObject>"}}'
+          - '400 {"msg": "Get user info failed.", "data": false}'
 
-  siteMessage(仅作为示例):
+    siteMessage(仅作为示例):
   
-  attachment(仅作为示例):
+    attachment(仅作为示例):

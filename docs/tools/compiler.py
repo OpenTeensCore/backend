@@ -2,8 +2,6 @@
 Compile .yaml documents into .md files.
 """
 
-import os
-import sys
 import yaml
 import json
 
@@ -48,9 +46,9 @@ def compile_yaml_to_md(yaml_path, md_path):
                             "|".join(
                                 [
                                     y["name"],
-                                    y["type"],
+                                    f' `{y["type"]}` ',
                                     y["desc"],
-                                    str(y["required"]),
+                                    f' `{y["required"]}` ',
                                 ]
                             )
                             for y in x.get("param", [])

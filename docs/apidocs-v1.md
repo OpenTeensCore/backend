@@ -2,20 +2,22 @@
 
 ## user
 
+### account
 
-## **GET** _v1/user/_
+
+### **GET** _v1/user/_
 
 > Display the Hello message
 
-### NEED AUTHENTICATION
+#### NEED AUTHENTICATION
 False
 
-### PARAMETERS
+#### PARAMETERS
 | Name | Type | Description | Required |
 |------|------|-------------|----------|
 
 
-### EXAMPLE RESPONSE
+#### EXAMPLE RESPONSE
 ```json
 200 OK
 {
@@ -26,19 +28,19 @@ False
 
 
 
-## **POST** _v1/user/sendEmail_
+### **POST** _v1/user/sendEmail_
 
 > 发送验证邮件码到指定邮箱（目前直接显示在debug log）
 
-### NEED AUTHENTICATION
+#### NEED AUTHENTICATION
 False
 
-### PARAMETERS
+#### PARAMETERS
 | Name | Type | Description | Required |
 |------|------|-------------|----------|
-email|string|邮箱地址（目前有指定后缀）|True
+email| `string` |邮箱地址（目前有指定后缀）| `True` 
 
-### EXAMPLE RESPONSE
+#### EXAMPLE RESPONSE
 ```json
 200 OK
 {
@@ -56,20 +58,20 @@ email|string|邮箱地址（目前有指定后缀）|True
 
 
 
-## **POST** _v1/user/verifyEmail_
+### **POST** _v1/user/verifyEmail_
 
 > 验证邮箱
 
-### NEED AUTHENTICATION
+#### NEED AUTHENTICATION
 False
 
-### PARAMETERS
+#### PARAMETERS
 | Name | Type | Description | Required |
 |------|------|-------------|----------|
-email|string|邮箱地址|True
-code|string|邮箱验证码验证码|True
+email| `string` |邮箱地址| `True` 
+code| `string` |邮箱验证码验证码| `True` 
 
-### EXAMPLE RESPONSE
+#### EXAMPLE RESPONSE
 ```json
 200 OK
 {
@@ -87,19 +89,19 @@ code|string|邮箱验证码验证码|True
 
 
 
-## **GET** _v1/user/isExistEmail_
+### **GET** _v1/user/isExistEmail_
 
 > 判断邮箱是否已注册
 
-### NEED AUTHENTICATION
+#### NEED AUTHENTICATION
 False
 
-### PARAMETERS
+#### PARAMETERS
 | Name | Type | Description | Required |
 |------|------|-------------|----------|
-email|string|邮箱地址|True
+email| `string` |邮箱地址| `True` 
 
-### EXAMPLE RESPONSE
+#### EXAMPLE RESPONSE
 ```json
 200 OK
 {
@@ -126,22 +128,22 @@ email|string|邮箱地址|True
 
 
 
-## **POST** _v1/user/reg_
+### **POST** _v1/user/reg_
 
 > 注册用户
 
-### NEED AUTHENTICATION
+#### NEED AUTHENTICATION
 False
 
-### PARAMETERS
+#### PARAMETERS
 | Name | Type | Description | Required |
 |------|------|-------------|----------|
-username|string|用户名|True
-email|string|邮箱地址|True
-code|string|邮箱验证码|True
-password|string|密码 (sha-256加密后的密码)|True
+username| `string` |用户名| `True` 
+email| `string` |邮箱地址| `True` 
+code| `string` |邮箱验证码| `True` 
+password| `string` |密码 (sha-256加密后的密码)| `True` 
 
-### EXAMPLE RESPONSE
+#### EXAMPLE RESPONSE
 ```json
 200 OK
 {
@@ -169,20 +171,20 @@ password|string|密码 (sha-256加密后的密码)|True
 
 
 
-## **POST** _v1/user/login_
+### **POST** _v1/user/login_
 
 > 用户登录
 
-### NEED AUTHENTICATION
+#### NEED AUTHENTICATION
 False
 
-### PARAMETERS
+#### PARAMETERS
 | Name | Type | Description | Required |
 |------|------|-------------|----------|
-username|string|用户名|True
-password|string|密码 (sha-256加密后的密码)|True
+username| `string` |用户名| `True` 
+password| `string` |密码 (sha-256加密后的密码)| `True` 
 
-### EXAMPLE RESPONSE
+#### EXAMPLE RESPONSE
 ```json
 200 OK
 {
@@ -204,19 +206,19 @@ password|string|密码 (sha-256加密后的密码)|True
 
 
 
-## **GET** _v1/user/getUserInfo_
+### **GET** _v1/user/getUserInfo_
 
 > 获取用户信息
 
-### NEED AUTHENTICATION
+#### NEED AUTHENTICATION
 True
 
-### PARAMETERS
+#### PARAMETERS
 | Name | Type | Description | Required |
 |------|------|-------------|----------|
-user|string|指定的用户|True
+user| `string` |指定的用户| `True` 
 
-### EXAMPLE RESPONSE
+#### EXAMPLE RESPONSE
 ```json
 200 OK
 {
@@ -238,7 +240,7 @@ user|string|指定的用户|True
 
 
 
-## siteMessage(仅作为示例)
+### siteMessage(仅作为示例)
 
-## attachment(仅作为示例)
+### attachment(仅作为示例)
 
