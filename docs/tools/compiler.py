@@ -2,8 +2,6 @@
 Compile .yaml documents into .md files.
 """
 
-import os
-import sys
 import yaml
 import json
 
@@ -48,9 +46,9 @@ def compile_yaml_to_md(yaml_path, md_path):
                             "|".join(
                                 [
                                     y["name"],
-                                    y["type"],
+                                    f' `{y["type"]}` ',
                                     y["desc"],
-                                    str(y["required"]),
+                                    f' `{y["required"]}` ',
                                 ]
                             )
                             for y in x.get("param", [])
@@ -59,20 +57,15 @@ def compile_yaml_to_md(yaml_path, md_path):
 
                     markdown = f"""
 {'#'*level} **{method}** _{path}_
-
 > {x["desc"]}
-
 {'#'*(level+1)} NEED AUTHENTICATION
 {x["needAuth"]}
-
 {'#'*(level+1)} PARAMETERS
 | Name | Type | Description | Required |
 |------|------|-------------|----------|
 {params}
-
 {'#'*(level+1)} EXAMPLE RESPONSE
 {response}
-
 """
 
                     md_content += markdown
