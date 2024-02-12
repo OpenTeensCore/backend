@@ -1,7 +1,7 @@
 package services
 
 import (
-	"OpenTeens/controller"
+	//"OpenTeens/controller"
 	"OpenTeens/model"
 	"OpenTeens/utils"
 	"fmt"
@@ -11,11 +11,11 @@ import (
 // UserSendEmailService 发送邮箱验证码业务逻辑（包括存入数据库）
 func UserSendEmailService(email string, ipaddr string) any {
 	emailCheck := utils.ToolValidateValue(email, utils.Email)
-	serviceCheck := controller.FuncUserEmailServiceCheck(ipaddr, email) // TODO: Need to be changed
+	serviceCheck := FuncUserEmailServiceCheck(ipaddr, email) // TODO: Need to be changed
 
 	if emailCheck && serviceCheck {
 		code := utils.GenerateRandomNumber()
-		controller.FuncUserEmailSend(email, code, ipaddr)
+		FuncUserEmailSend(email, code, ipaddr)
 		return true
 	} else if !emailCheck {
 		fmt.Println("==================> Send Email Failed to", email, "where ip is", ipaddr, "because of email is not valid.")
