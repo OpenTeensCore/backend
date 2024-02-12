@@ -1,9 +1,11 @@
-package controller
+package services
 
 import (
 	"OpenTeens/model"
 	"fmt"
 )
+
+// 我印象里这个文件的建立是为了避免循环引用（笑）
 
 // FuncUserEmailSend 发送邮件验证码，需要计入数据库
 func FuncUserEmailSend(email string, code string, ipaddr string) {
