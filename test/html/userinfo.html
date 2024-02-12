@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<!--导航栏-->
+<div class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="/userinfo.html">OpenTeens</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
+                <li class="nav-item"><a class="nav-link active" href="/userinfo.html"> Home </a></li>
+                <li class="nav-item"><a class="nav-link" href="/index.html"> Login </a></li>
+                <li class="nav-item"><a class="nav-link" href="/registry.html"> Registry </a></li>
+            </ul>
+            <form class="d-flex">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+</div>
+<!--导航栏结束-->
+
+<div id="Pseudo">
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        var token = localStorage.getItem("userToken");
+        $.ajax({
+            url: 'http://127.0.0.1:8088/v1/user/account/getUserInfo',
+            headers: { 'Authorization': token },
+            type: 'GET',
+            success: function(response) {
+                var account = response.data.account;
+                var info = response.data.info;
+                var userInfoHtml = `<div class="container mt-5">
+                                        <h2>User Information</h2>
+                                        <div id="userInfo" class="row">
+                                            <!-- Left Column: Avatar and Basic Info -->
+                                            <div class="col-md-4">
+                                                <div class="card">
+                                                    <img src="https://ae01.alicdn.com/kf/HTB1JgJLbwmH3KVjSZKz7622OXXaD.png" class="card-img-top" alt="User Avatar">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title">${account.Nickname}</h5>
+                                                        <p class="card-text">${account.Username}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Middle Column: Detailed Information -->
+                                            <div class="col-md-5">
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title">Details</h5>
+                                                        <p class="card-text"><strong>Email:</strong> ${account.Email}</p>
+                                                        <p class="card-text"><strong>Status:</strong> ${account.Status}</p>
+                                                        <p class="card-text"><strong>Register IP:</strong> ${info.RegisterIP}</p>
+                                                        <p class="card-text"><strong>Last Login IP:</strong> ${info.LastLoginIP}</p>
+                                                        <p class="card-text"><strong>Register Time:</strong> ${info.CreatedAt}</p>
+                                                        <p class="card-text"><strong>Last Login Time:</strong> ${info.UpdatedAt}</p>
+                                                        <!-- Add more detailed info here -->
+                                                    </div>
+                                                </div><br>
+                                                <div class="card">
+                                                    <div class="card-body" id="msgs"></div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Right Column: Actions like Logout -->
+                                            <div class="col-md-3">
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title">Actions</h5>
+                                                        <button class="btn btn-primary" onclick="javascript:localStorage.removeItem('userToken');window.location.href='/index.html'">Logout</button>
+                                                        <!-- Add more actions here -->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    `;
+                $('#Pseudo').html(userInfoHtml);
+            },
+            error: function() {
+                window.location.href = "/index.html";
+            }
+        });
+        $.ajax({
+            url: 'http://127.0.0.1:8088/v1/user/siteMessage/get',
+            headers: { 'Authorization': token },
+            type: 'GET',
+            // 插入到#msgs中
+            success: function(response) {
+                var msgs = response.data;
+                var msgsHtml = `<h5 class="card-title">Messages</h5>`;
+                for (var i = 0; i < msgs.length; i++) {
+                    msgsHtml += `<p class="card-text">${msgs[i].content} - By. ${msgs[i].sender_username}</p>`;
+                }
+                $('#msgs').html(msgsHtml);
+            },
+        })
+    });
+
+</script>
+</body>
+</html>
