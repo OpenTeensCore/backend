@@ -69,9 +69,8 @@ v1:
             desc: 密码 (sha-256加密后的密码)
             required: true
         response:
-          - '200 {"code": 200, "msg": "Register successfully!"}'
-          - '200 {"code": 400, "msg": "Register Failed."}'
-          - '400 {"code": 400, "msg": "Username is exist."}'
+          - '200 {"msg": "Register successfully!"}'
+          - '400 {"msg": "Username is exist."}'
 
       - api: POST v1/user/login
         needAuth: false
@@ -86,8 +85,8 @@ v1:
             desc: 密码 (sha-256加密后的密码)
             required: true
         response:
-          - '200 {"code": 200, "msg": "Login Successfully!", "data": "this is token"}'
-          - '400 {"code": 400, "msg": "Login Failed.", "data": false}'
+          - '200 {"msg": "Login Successfully!", "data": "this is token"}'
+          - '400 {"msg": "Login Failed.", "data": false}'
 
       - api: GET v1/user/getUserInfo
         needAuth: true
