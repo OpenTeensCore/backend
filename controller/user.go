@@ -5,9 +5,10 @@ import (
 	"OpenTeens/services"
 	"OpenTeens/utils"
 	"fmt"
-	"github.com/gin-gonic/gin"
 	"strconv"
 	"strings"
+
+	"github.com/gin-gonic/gin"
 )
 
 // 代码命名格式：
@@ -18,7 +19,7 @@ import (
 
 // IndexHandler 处理访问Root的请求
 func IndexHandler(c *gin.Context) {
-	c.JSON(200, gin.H{"code": 200, "msg": "Hello, OpenTeens!", "data": gin.H{"token": utils.GenerateToken(), "verify": utils.GenerateRandomNumber()}})
+	c.JSON(200, gin.H{"msg": "Hello, OpenTeens!", "data": gin.H{"token": utils.GenerateToken(), "verify": utils.GenerateRandomNumber()}})
 }
 
 // UserSendEmailHandler 发送邮箱验证码的处理
@@ -128,9 +129,9 @@ func UserRegisterHandler(c *gin.Context) {
 	UserInfo.LastLoginIP = c.ClientIP()
 
 	if model.DBUserAdd(&UserAccount) && model.DBUserAddInfo(&UserInfo) {
-		c.JSON(200, gin.H{"code": 200, "msg": "Register Successfully!"})
+		c.JSON(200, gin.H{"msg": "Register Successfully!"})
 	} else {
-		c.JSON(200, gin.H{"code": 400, "msg": "Register Failed."})
+		c.JSON(400, gin.H{"msg": "Register Failed."}) // won't be triggered
 	}
 }
 
@@ -139,18 +140,18 @@ func UserLoginHandler(c *gin.Context) {
 	//	获取用户名和密码
 	username, password := c.PostForm("username"), c.PostForm("password")
 	if username == "" || password == "" {
-		c.JSON(200, gin.H{"code": 400, "msg": "Username or Password is empty."})
+		c.JSON(200, gin.H{"msg": "Username or Password is empty."})
 		return
 	}
-	if utils.ToolValidateValue(username, utils.Username) == false {
-		c.JSON(400, gin.H{"code": 400, "msg": "Username is not valid."})
+	if !utils.ToolValidateValue(username, utils.Username) {
+		c.JSON(400, gin.H{"msg": "Username is not valid."})
 		return
 	}
 	success, token := services.UserLoginService(username, password)
-	if success == true {
-		c.JSON(200, gin.H{"code": 200, "msg": "Login Successfully!", "data": token})
+	if success {
+		c.JSON(200, gin.H{"msg": "Login Successfully!", "data": token})
 	} else {
-		c.JSON(400, gin.H{"code": 400, "msg": "Login Failed.", "data": false})
+		c.JSON(400, gin.H{"msg": "Login Failed.", "data": false})
 	}
 }
 

@@ -123,23 +123,13 @@ password| `string` |密码 (sha-256加密后的密码)| `True`
 ```json
 200 OK
 {
-    "code": 200,
     "msg": "Register successfully!"
-}
-```
-
-```json
-200 OK
-{
-    "code": 400,
-    "msg": "Register Failed."
 }
 ```
 
 ```json
 400 Bad Request
 {
-    "code": 400,
     "msg": "Username is exist."
 }
 ```
@@ -159,7 +149,6 @@ password| `string` |密码 (sha-256加密后的密码)| `True`
 ```json
 200 OK
 {
-    "code": 200,
     "msg": "Login Successfully!",
     "data": "this is token"
 }
@@ -168,7 +157,6 @@ password| `string` |密码 (sha-256加密后的密码)| `True`
 ```json
 400 Bad Request
 {
-    "code": 400,
     "msg": "Login Failed.",
     "data": false
 }
