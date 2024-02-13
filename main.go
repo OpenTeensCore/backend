@@ -25,5 +25,5 @@ func main() {
 
 	r := router.SetUpRoute()
 
-	r.Run("0.0.0.0:8088")
+	r.Run("0.0.0.0:5555")
 }
