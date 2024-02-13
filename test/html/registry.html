@@ -69,7 +69,7 @@
             var verificationCode = $('#verificationCode').val();
             var password = $('#password').val();
             $.ajax({
-                url: 'http://127.0.0.1:8088/v1/user/account/reg',
+                url: 'http://127.0.0.1:5555/v1/user/account/reg',
                 type: 'POST',
                 data: { username: username, email: email, code: verificationCode, password: password },
                 success: function(response) {
@@ -87,7 +87,7 @@
         $('#sendEmailButton').on('click', function() {
             var email = $('#email').val();
             $.ajax({
-                url: 'http://127.0.0.1:8088/v1/user/account/sendEmail',
+                url: 'http://127.0.0.1:5555/v1/user/account/sendEmail',
                 type: 'POST',
                 data: { email: email },
                 success: function(response) {

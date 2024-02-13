@@ -39,7 +39,7 @@
     $(document).ready(function() {
         var token = localStorage.getItem("userToken");
         $.ajax({
-            url: 'http://127.0.0.1:8088/v1/user/account/getUserInfo',
+            url: 'http://127.0.0.1:5555/v1/user/account/getUserInfo',
             headers: { 'Authorization': token },
             type: 'GET',
             success: function(response) {
@@ -98,7 +98,7 @@
             }
         });
         $.ajax({
-            url: 'http://127.0.0.1:8088/v1/user/siteMessage/get',
+            url: 'http://127.0.0.1:5555/v1/user/siteMessage/get',
             headers: { 'Authorization': token },
             type: 'GET',
             // 插入到#msgs中

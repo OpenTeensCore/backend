@@ -56,7 +56,7 @@
             var username = $('#username').val();
             var password = $('#password').val();
             $.ajax({
-                url: 'http://127.0.0.1:8088/v1/user/account/login',
+                url: 'http://127.0.0.1:5555/v1/user/account/login',
                 type: 'POST',
                 data: { username: username, password: password },
                 success: function(response) {
