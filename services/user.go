@@ -13,12 +13,12 @@ func UserSendEmailService(email string, ipaddr string) any {
 	emailCheck := utils.ToolValidateValue(email, utils.Email)
 	serviceCheck := FuncUserEmailServiceCheck(ipaddr, email) // TODO: Need to be changed
 
-	if emailCheck && serviceCheck {
+	if emailCheck == 0 && serviceCheck {
 		code := utils.GenerateRandomNumber()
 		FuncUserEmailSend(email, code, ipaddr)
 		return true
-	} else if !emailCheck {
-		fmt.Println("==================> Send Email Failed to", email, "where ip is", ipaddr, "because of email is not valid.")
+	} else if emailCheck != 0 {
+		fmt.Println("==================> Send Email Failed to", email, "where ip is", ipaddr, "because of", emailCheck)
 		return "Email Pattern is not Valid."
 	} else if !serviceCheck {
 		fmt.Println("==================> Send Email Failed to", email, "where ip is", ipaddr, "because of service is not valid.")

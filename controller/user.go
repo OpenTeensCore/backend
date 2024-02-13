@@ -67,7 +67,7 @@ func UserEmailExistHandler(c *gin.Context) {
 		c.JSON(400, gin.H{"msg": "Email is empty."})
 		return
 	}
-	if !utils.ToolValidateValue(email, utils.Email) {
+	if utils.ToolValidateValue(email, utils.Email) == 0 {
 		c.JSON(400, gin.H{"msg": "Email is not valid."})
 		return
 	}
@@ -90,12 +90,12 @@ func UserRegisterHandler(c *gin.Context) {
 		return
 	}
 
-	if utils.ToolValidateValue(email, utils.Email) == false {
+	if utils.ToolValidateValue(email, utils.Email) != 0 {
 		c.JSON(400, gin.H{"msg": "Email is not valid."})
 		return
 	}
 
-	if utils.ToolValidateValue(username, utils.Username) == false {
+	if utils.ToolValidateValue(username, utils.Username) != 0 {
 		c.JSON(400, gin.H{"msg": "Username is not valid."})
 		return
 	}
@@ -143,7 +143,7 @@ func UserLoginHandler(c *gin.Context) {
 		c.JSON(200, gin.H{"msg": "Username or Password is empty."})
 		return
 	}
-	if !utils.ToolValidateValue(username, utils.Username) {
+	if utils.ToolValidateValue(username, utils.Username) != 0 {
 		c.JSON(400, gin.H{"msg": "Username is not valid."})
 		return
 	}

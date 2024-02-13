@@ -43,7 +43,7 @@ const (
 )
 
 // ToolValidateValue 根据不同类型验证值
-func ToolValidateValue(value string, valueType ValueType) bool {
+func ToolValidateValue(value string, valueType ValueType) int {
 	switch valueType {
 	case Email:
 		return validateEmail(value)
@@ -52,16 +52,16 @@ func ToolValidateValue(value string, valueType ValueType) bool {
 	case Nickname:
 		return validateNickname(value)
 	default:
-		return false
+		return 1
 	}
 }
 
 // validateEmail 验证邮箱格式
-func validateEmail(email string) bool {
+func validateEmail(email string) int {
 	// 验证邮箱格式：name@domain
 	splited := strings.Split(email, "@")
 	if len(splited) != 2 {
-		return false
+		return -1
 	}
 
 	// extract name and domain
@@ -71,32 +71,38 @@ func validateEmail(email string) bool {
 	emailNamePattern := `^[a-zA-Z0-9._%+-]+$`
 	success1, _ := regexp.MatchString(emailNamePattern, emailName)
 	if !success1 {
-		return false
+		return -1
 	}
 
 	// check2: domain
 	trustedEmailDomains := []string{"openteens.org", "gmail.com"}
 	for _, domain := range trustedEmailDomains {
 		if emailDomain == domain {
-			return true
+			return 0
 		}
 	}
 
 	// domain not supported
-	return false
+	return -2
 }
 
 // validateUsername 验证用户名
-func validateUsername(username string) bool {
+func validateUsername(username string) int {
 	usernamePattern := `^[a-zA-Z0-9]{6,18}$`
 	success, _ := regexp.MatchString(usernamePattern, username)
-	return success
+	if success {
+		return 0
+	}
+	return -1
 }
 
 // validateNickname 验证昵称
-func validateNickname(nickname string) bool {
+func validateNickname(nickname string) int {
 	// 验证长度 (16个字符以内，一个汉字算作两个字符)
-	return utf8.RuneCountInString(nickname) <= 16
+	if utf8.RuneCountInString(nickname) <= 16 {
+		return 0
+	}
+	return -1
 }
 
 // ToolUserEmailCheck 检查邮箱是否符合格式或已经注册
